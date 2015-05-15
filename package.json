@@ -1,0 +1,24 @@
+{
+    "name": "salesforce-service",
+    "version": "1.0.0",
+    "description": "",
+    "private": true,
+    "main": "service.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "start": "node service.js",
+        "test": "NODE_ENV=test mocha"
+    },
+    "author": "nearForm",
+    "license": "MIT",
+    "dependencies": {
+        "seneca": "0.6.1",
+        "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"  
+    },
+    "devDependencies": {
+        "mocha": "~2.2.1",
+        "chai": "~2.1.2"
+    }
+}
