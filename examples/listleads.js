@@ -7,7 +7,7 @@ var seneca = require('seneca')().client({
 
 function print(err, result) {
   if (err) { return console.error(err); }
-  console.log(util.inspect(result).replace(/\n/g,' '));
+  console.log(util.inspect(result, true, null))
 }
 
 seneca.act('role:cd-salesforce, cmd:list_leads', {}, print);
