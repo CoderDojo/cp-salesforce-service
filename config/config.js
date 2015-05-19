@@ -14,7 +14,6 @@ module.exports = function() {
     return '127.0.0.1';
   };
 
-console.log("ENV", process.env);
   return {
     transport: {
       type: 'web',
