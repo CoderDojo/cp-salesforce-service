@@ -9,7 +9,7 @@
     },
     "scripts": {
         "start": "node service.js",
-        "test": "NODE_ENV=test mocha"
+        "test": "echo TEST NOT IMPLEMENTED"
     },
     "author": "nearForm",
     "license": "MIT",
