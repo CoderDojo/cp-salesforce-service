@@ -1,5 +1,7 @@
 'use strict';
 
+require('newrelic');
+
 var config = require('./config/config.js')();
 var seneca = require('seneca')();
 
