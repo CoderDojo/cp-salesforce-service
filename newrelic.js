@@ -33,6 +33,6 @@ exports.config = {
      *
      * @env NEW_RELIC_LOG
      */
-    filepath: '/var/log/newrelic/cp/newrelic_agent_salesforce.log'
+    filepath: '/tmp/newrelic_agent_salesforce.log'
   }
 }
