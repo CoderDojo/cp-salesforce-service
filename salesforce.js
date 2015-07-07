@@ -7,12 +7,15 @@ module.exports = function (opts) {
   seneca.add({role: plugin, cmd: 'save_lead'}, cmd_save_lead);
   seneca.add({role: plugin, cmd: 'delete_lead'}, cmd_delete_lead);
   seneca.add({role: plugin, cmd: 'convert_lead_to_account'}, cmd_convert_lead_to_account);
+  seneca.add({role: plugin, cmd: 'save_account'}, cmd_save_account);
 
 
-  function _userExistsInSalesForce(userId, cb) {
-    var lead = seneca.make$('Lead');
-    lead.list$({PlatformId__c: userId}, function(err, data) {
+  function _accountExistsInSalesForce(userId, cb) {
+    var account = seneca.make$('Account');
+    account.list$({PlatformId__c: userId}, function(err, data) {
       if (err) return cb(err);
+
+console.log("**** SF **** user in salesforce: ", data);
 
       var id;
       if (data.totalSize > 0) {
@@ -20,6 +23,34 @@ module.exports = function (opts) {
         if (record) id = record.Id;
       }
       return cb(null, id);
+    });
+  };
+
+  function _leadExistsInSalesForce(leadId, cb) {
+    var lead = seneca.make$('Lead');
+    lead.list$({PlatformId__c: leadId}, function(err, data) {
+      if (err) return cb(err);
+
+console.log("**** SF **** lead in salesforce: ", data);
+      var id;
+      if (data.totalSize > 0) {
+        var record = data.records[0];
+        if (record) id = record.Id;
+      }
+      return cb(null, id);
+    });
+  };
+
+
+  function cmd_save_account (args, cb) {
+    var seneca = this;
+
+    _accountExistsInSalesForce(args.userId, function(err, salesForceId) {
+      if (err) return cb(err);
+      var account = seneca.make$('Account', args.account);
+console.log("*** SF **** SAVING Account", account);
+      if (salesForceId) account.id$ = salesForceId;
+      account.save$(cb);
     });
   };
 
@@ -31,9 +62,10 @@ module.exports = function (opts) {
   function cmd_save_lead (args, cb) {
     var seneca = this;
 
-    _userExistsInSalesForce(args.userId, function(err, salesForceId) {
+    _leadExistsInSalesForce(args.userId, function(err, salesForceId) {
       if (err) return cb(err);
       var lead = seneca.make$('Lead', args.lead);
+console.log("*** SF SAVING LEAD", lead);
       if (salesForceId) lead.id$ = salesForceId;
       lead.save$(cb);
     });
