@@ -9,6 +9,6 @@ seneca.log.info('using config', JSON.stringify(config, null, 4));
 seneca.options(config);
 
 seneca.use('salesforce-store', config.salesforce);
-seneca.use(require('./salesforce.js'));
+seneca.use(require('./salesforce.js'), config.salesforce);
 
 seneca.listen();
