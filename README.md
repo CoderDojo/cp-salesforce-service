@@ -9,6 +9,14 @@ npm install
 
 Ensure configuration file for the running environment exists and has the correct options. Default environment is development, options read from `config/config.js` - environment overrides in `config/<environment>.env`.
 
+### Environment variables
+
+```
+SALESFORCE_URL - url
+SALESFORCE_USERNAME - username
+SALESFORCE_PASSWORD - password
+```
+
 ## Run
 
 Start Server:

@@ -14,6 +14,7 @@
   "author": "nearForm",
   "license": "MIT",
   "dependencies": {
+    "jsforce": "1.4.1",
     "newrelic": "1.19.2",
     "seneca": "0.6.1",
     "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
