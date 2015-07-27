@@ -1,6 +1,7 @@
-FROM node:0.10
+FROM mhart/alpine-node:0.10
 MAINTAINER nearForm <info@nearform.com>
 
+RUN apk-install git make gcc g++ python
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
