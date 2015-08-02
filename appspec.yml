@@ -3,18 +3,29 @@ os: linux
 files:
   - source: deploy/cp-salesforce-service.conf
     destination: /etc/init/
+  - source: deploy/cp-salesforce-service.env
+    destination: /etc/zen
   - source: /
-    destination: /opt/cp-salesforce-service
-#hooks:
-#  BeforeInstall:
-#    - location: scripts/install_dependencies
-#      timeout: 300
-#      runas: root
-#    - location: scripts/start_server
-#      timeout: 300
-#      runas: root
-#  ApplicationStop:
-#    - location: scripts/stop_server
-#      timeout: 300
-#      runas: root
+    destination: /opt/zen/cp-salesforce-service
+
+permissions:
+  - object: /opt/zen/cp-salesforce-service
+    owner: ubuntu
+    group: ubuntu
+  - object: /etc/zen/cp-salesforce-service.env
+    owner: ubuntu
+    group: ubuntu
+  
+hooks:
+  ApplicationStop:
+    - location: deploy/stop-server.sh
+      timeout: 300
+      runas: root
+
+  ApplicationStart:
+    - location: deploy/start-server.sh
+      timeout: 300
+      runas: root
+
+  
 
