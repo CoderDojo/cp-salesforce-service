@@ -10,9 +10,6 @@ permissions:
   - object: /opt/zen/cp-salesforce-service
     owner: ubuntu
     group: ubuntu
-  - object: /etc/zen/cp-salesforce-service.env
-    owner: ubuntu
-    group: ubuntu
   
 hooks:
   ApplicationStop:
