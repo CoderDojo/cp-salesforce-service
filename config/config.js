@@ -54,6 +54,9 @@ module.exports = function() {
       username: process.env.SALESFORCE_USERNAME,
       password: process.env.SALESFORCE_PASSWORD
     },
+    debug: {
+      undead: true
+    },
     log: log()
   };
 }
