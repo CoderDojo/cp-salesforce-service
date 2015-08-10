@@ -17,7 +17,7 @@
     "jsforce": "1.4.1",
     "le_node": "1.0.11",
     "newrelic": "1.19.2",
-    "seneca": "0.6.4",
+    "seneca": "git://github.com/thekemkid/seneca.git",
     "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
   },
   "devDependencies": {
