@@ -43,9 +43,8 @@ module.exports = function() {
 
   return {
     transport: {
-      type: 'web',
-      web: {
-        host: '0.0.0.0',
+      type: 'tcp',
+      tcp: {
         port: 10304
       }
     },
