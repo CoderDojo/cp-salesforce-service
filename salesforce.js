@@ -8,6 +8,7 @@ module.exports = function (opts) {
   seneca.add({role: plugin, cmd: 'delete_lead'}, cmd_delete_lead);
   seneca.add({role: plugin, cmd: 'convert_lead_to_account'}, cmd_convert_lead_to_account);
   seneca.add({role: plugin, cmd: 'save_account'}, cmd_save_account);
+  seneca.add({role: plugin, cmd: 'get_account'}, cmd_get_account);
 
   function _accountExistsInSalesForce(userId, cb) {
     var account = seneca.make$('Account');
@@ -34,6 +35,20 @@ module.exports = function (opts) {
         if (record) id = record.Id;
       }
       return cb(null, id);
+    });
+  };
+
+  function cmd_get_account (args, cb) {
+    var account = seneca.make$('Account');
+    account.list$({PlatformId__c: args.accId}, function(err, data) {
+      if (err) return cb(err);
+
+      var id;
+      if (data.totalSize > 0) {
+        var record = data.records[0];
+        if (record) id = record.Id;
+      }
+      return cb(null, {accId: id});
     });
   };
 
