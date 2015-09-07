@@ -40,13 +40,14 @@ module.exports = function (opts) {
 
   function cmd_get_account (args, cb) {
     var account = seneca.make$('Account');
-    account.list$({PlatformId__c: args.accId}, function(err, data) {
-      if (err) return cb(err);
-
+    account.list$({PlatformId__c: args.platformId}, function(err, data) {
+      if (err) return cb(null, {error: 'problem getting salesforce account id'});
       var id;
       if (data.totalSize > 0) {
         var record = data.records[0];
         if (record) id = record.Id;
+      } else {
+        return cb(null, {error: 'no salesforce id returned'});
       }
       return cb(null, {accId: id});
     });
