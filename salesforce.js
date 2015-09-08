@@ -13,7 +13,7 @@ module.exports = function (opts) {
   function _accountExistsInSalesForce(userId, cb) {
     var account = seneca.make$('Account');
     account.list$({PlatformId__c: userId}, function(err, data) {
-      if (err) return cb(err);
+      if (err) return cb(null, {error: 'error getting salesforce account [Platform__c: '+userId+']'});
 
       var id;
       if (data.totalSize > 0) {
@@ -27,7 +27,7 @@ module.exports = function (opts) {
   function _leadExistsInSalesForce(leadId, cb) {
     var lead = seneca.make$('Lead');
     lead.list$({PlatformId__c: leadId}, function(err, data) {
-      if (err) return cb(err);
+      if (err) return cb(null, {error: 'error getting salesforce lead [Platform__c: '+leadId+']'});
 
       var id;
       if (data.totalSize > 0) {
@@ -41,7 +41,7 @@ module.exports = function (opts) {
   function cmd_get_account (args, cb) {
     var account = seneca.make$('Account');
     account.list$({PlatformId__c: args.platformId}, function(err, data) {
-      if (err) return cb(null, {error: 'problem getting salesforce account id'});
+      if (err) return cb(null, {error: 'error getting salesforce account [Platform__c: '+args.platformId+']'});
       var id;
       if (data.totalSize > 0) {
         var record = data.records[0];
@@ -57,7 +57,7 @@ module.exports = function (opts) {
     var seneca = this;
 
     _accountExistsInSalesForce(args.userId, function(err, salesForceId) {
-      if (err) return cb(err);
+      if (err) return cb(null, {error: 'error getting salesforce account for save [Platform__c: '+args.userId+']'});
       var account = seneca.make$('Account', args.account);
       if (salesForceId) account.id$ = salesForceId;
       account.save$(cb);
@@ -73,7 +73,7 @@ module.exports = function (opts) {
     var seneca = this;
 
     _leadExistsInSalesForce(args.userId, function(err, salesForceId) {
-      if (err) return cb(err);
+      if (err) return cb(null, {error: 'error getting salesforce lead for save [Platform__c: '+args.userId+']'});
       var lead = seneca.make$('Lead', args.lead);
       if (salesForceId) lead.id$ = salesForceId;
       lead.save$(cb);
