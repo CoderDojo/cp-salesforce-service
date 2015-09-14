@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node service.js",
+    "lint": "./node_modules/.bin/semistandard *.js",
     "test": "echo TEST NOT IMPLEMENTED"
   },
   "author": "nearForm",
@@ -21,7 +22,8 @@
     "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
   },
   "devDependencies": {
+    "chai": "2.1.2",
     "mocha": "2.2.1",
-    "chai": "2.1.2"
+    "semistandard": "7.0.2"
   }
 }

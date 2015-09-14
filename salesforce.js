@@ -10,10 +10,10 @@ module.exports = function (opts) {
   seneca.add({role: plugin, cmd: 'save_account'}, cmd_save_account);
   seneca.add({role: plugin, cmd: 'get_account'}, cmd_get_account);
 
-  function _accountExistsInSalesForce(userId, cb) {
+  function _accountExistsInSalesForce (userId, cb) {
     var account = seneca.make$('Account');
-    account.list$({PlatformId__c: userId}, function(err, data) {
-      if (err) return cb(null, {error: 'error getting salesforce account [Platform__c: '+userId+']'});
+    account.list$({PlatformId__c: userId}, function (err, data) {
+      if (err) return cb(null, {error: 'error getting salesforce account [Platform__c: ' + userId + ']'});
 
       var id;
       if (data.totalSize > 0) {
@@ -22,12 +22,12 @@ module.exports = function (opts) {
       }
       return cb(null, id);
     });
-  };
+  }
 
-  function _leadExistsInSalesForce(leadId, cb) {
+  function _leadExistsInSalesForce (leadId, cb) {
     var lead = seneca.make$('Lead');
-    lead.list$({PlatformId__c: leadId}, function(err, data) {
-      if (err) return cb(null, {error: 'error getting salesforce lead [Platform__c: '+leadId+']'});
+    lead.list$({PlatformId__c: leadId}, function (err, data) {
+      if (err) return cb(null, {error: 'error getting salesforce lead [Platform__c: ' + leadId + ']'});
 
       var id;
       if (data.totalSize > 0) {
@@ -36,12 +36,12 @@ module.exports = function (opts) {
       }
       return cb(null, id);
     });
-  };
+  }
 
   function cmd_get_account (args, cb) {
     var account = seneca.make$('Account');
-    account.list$({PlatformId__c: args.platformId}, function(err, data) {
-      if (err) return cb(null, {error: 'error getting salesforce account [Platform__c: '+args.platformId+']'});
+    account.list$({PlatformId__c: args.platformId}, function (err, data) {
+      if (err) return cb(null, {error: 'error getting salesforce account [Platform__c: ' + args.platformId + ']'});
       var id;
       if (data.totalSize > 0) {
         var record = data.records[0];
@@ -51,18 +51,18 @@ module.exports = function (opts) {
       }
       return cb(null, {accId: id});
     });
-  };
+  }
 
   function cmd_save_account (args, cb) {
     var seneca = this;
 
-    _accountExistsInSalesForce(args.userId, function(err, salesForceId) {
-      if (err) return cb(null, {error: 'error getting salesforce account for save [Platform__c: '+args.userId+']'});
+    _accountExistsInSalesForce(args.userId, function (err, salesForceId) {
+      if (err) return cb(null, {error: 'error getting salesforce account for save [Platform__c: ' + args.userId + ']'});
       var account = seneca.make$('Account', args.account);
       if (salesForceId) account.id$ = salesForceId;
       account.save$(cb);
     });
-  };
+  }
 
   function cmd_list_leads (args, cb) {
     var lead = seneca.make$('Lead');
@@ -72,8 +72,8 @@ module.exports = function (opts) {
   function cmd_save_lead (args, cb) {
     var seneca = this;
 
-    _leadExistsInSalesForce(args.userId, function(err, salesForceId) {
-      if (err) return cb(null, {error: 'error getting salesforce lead for save [Platform__c: '+args.userId+']'});
+    _leadExistsInSalesForce(args.userId, function (err, salesForceId) {
+      if (err) return cb(null, {error: 'error getting salesforce lead for save [Platform__c: ' + args.userId + ']'});
       var lead = seneca.make$('Lead', args.lead);
       if (salesForceId) lead.id$ = salesForceId;
       lead.save$(cb);
@@ -88,7 +88,7 @@ module.exports = function (opts) {
 
   // We convert a Lead to an Account by calling a custom Apex endpoint.
   // Note we do this directly in JSForce.
-  function cmd_convert_lead_to_account(args, cb) {
+  function cmd_convert_lead_to_account (args, cb) {
     var jsforce = require('jsforce');
     var conn = new jsforce.Connection(opts);
 
@@ -97,7 +97,7 @@ module.exports = function (opts) {
         if (err) return conn.login(opts.username, opts.password, cb);
         else return cb();
       });
-    };
+    }
 
     _connect(function (err) {
       if (err) return cb(err);
