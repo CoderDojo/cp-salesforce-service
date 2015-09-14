@@ -12,17 +12,24 @@
     "lint": "./node_modules/.bin/semistandard *.js",
     "test": "echo TEST NOT IMPLEMENTED"
   },
+  "precommit": {
+    "tasks": [
+      "npm run lint"
+    ]
+  },
   "author": "nearForm",
   "license": "MIT",
   "dependencies": {
     "jsforce": "1.4.1",
     "le_node": "1.1.0",
     "newrelic": "1.19.2",
+    "precommit": "1.1.5",
     "seneca": "git://github.com/thekemkid/seneca.git",
     "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
   },
   "devDependencies": {
     "chai": "2.1.2",
+    "es6-promise": "3.0.2",
     "mocha": "2.2.1",
     "semistandard": "7.0.2"
   }
