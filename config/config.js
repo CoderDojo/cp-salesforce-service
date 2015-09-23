@@ -1,7 +1,4 @@
-var assert = require('assert');
-var LogEntries = require('le_node');
-
-module.exports = function() {
+module.exports = function () {
   return {
     transport: {
       type: 'web',
@@ -15,7 +12,7 @@ module.exports = function() {
       username: process.env.SALESFORCE_USERNAME,
       password: process.env.SALESFORCE_PASSWORD
     },
-    strict: {add: false,  result: false},
+    strict: {add: false, result: false},
     actcache: {active: false}
   };
-}
+};

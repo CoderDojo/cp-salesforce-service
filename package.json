@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node service.js",
-    "lint": "./node_modules/.bin/semistandard *.js",
+    "lint": "./node_modules/.bin/semistandard *.js config/*.js",
     "test": "echo TEST NOT IMPLEMENTED"
   },
   "precommit": {
