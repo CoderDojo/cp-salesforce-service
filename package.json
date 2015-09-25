@@ -28,9 +28,6 @@
     "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
   },
   "devDependencies": {
-    "chai": "2.1.2",
-    "es6-promise": "3.0.2",
-    "mocha": "2.2.1",
     "semistandard": "7.0.2"
   }
 }
