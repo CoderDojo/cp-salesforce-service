@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "node service.js",
-    "lint": "./node_modules/.bin/semistandard *.js",
-    "test": "echo TEST NOT IMPLEMENTED"
+    "lint": "./node_modules/.bin/semistandard *.js config/*.js",
+    "test": "npm run lint"
   },
   "precommit": {
     "tasks": [
