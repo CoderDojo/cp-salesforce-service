@@ -45,6 +45,8 @@ module.exports = function (opts) {
       if (data.totalSize > 0) {
         var record = data.records[0];
         if (record) id = record.Id;
+      } else if(data && (!data.totalSize || !data.records)){
+        id = data[0].Id || data[0].id;
       } else {
         return cb(null, {error: 'no salesforce id returned'});
       }

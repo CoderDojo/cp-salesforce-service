@@ -9,12 +9,14 @@
   },
   "scripts": {
     "start": "node service.js",
-    "lint": "./node_modules/.bin/semistandard *.js config/*.js",
-    "test": "npm run lint"
+   	"lint": "./node_modules/.bin/semistandard *.js config/*.js",
+    "test": "bash -c 'source ./config/development.env; ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 68 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout'",
+    "covrep": "bash test/covrep.sh"
   },
   "precommit": {
     "tasks": [
-      "npm run lint"
+      "npm run lint",
+      "test"
     ]
   },
   "author": "nearForm",
@@ -28,6 +30,11 @@
     "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
   },
   "devDependencies": {
-    "semistandard": "7.0.2"
+    "chai": "2.2.0",
+    "es6-promise": "3.0.2",
+    "mocha": "2.2.1",
+    "semistandard": "7.0.2",
+    "lab": "5.15.1",
+    "sinon": "1.16.1"
   }
 }
