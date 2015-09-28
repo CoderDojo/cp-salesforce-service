@@ -72,8 +72,8 @@ module.exports = function (opts) {
   function cmd_save_lead (args, cb) {
     var seneca = this;
 
-    _leadExistsInSalesForce(args.userId, function (err, salesForceId) {
-      if (err) return cb(null, {error: 'error getting salesforce lead for save [Platform__c: ' + args.userId + ']'});
+    _leadExistsInSalesForce(args.leadId, function (err, salesForceId) {
+      if (err) return cb(null, {error: 'error getting salesforce lead for save [Platform__c: ' + args.leadId + ']'});
       var lead = seneca.make$('Lead', args.lead);
       if (salesForceId) lead.id$ = salesForceId;
       lead.save$(cb);
