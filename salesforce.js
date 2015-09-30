@@ -5,7 +5,6 @@ module.exports = function (opts) {
 
   seneca.add({role: plugin, cmd: 'list_leads'}, cmd_list_leads);
   seneca.add({role: plugin, cmd: 'save_lead'}, cmd_save_lead);
-  seneca.add({role: plugin, cmd: 'delete_lead'}, cmd_delete_lead);
   seneca.add({role: plugin, cmd: 'convert_lead_to_account'}, cmd_convert_lead_to_account);
   seneca.add({role: plugin, cmd: 'save_account'}, cmd_save_account);
   seneca.add({role: plugin, cmd: 'get_account'}, cmd_get_account);
@@ -46,6 +45,8 @@ module.exports = function (opts) {
       if (data.totalSize > 0) {
         var record = data.records[0];
         if (record) id = record.Id;
+      } else if (data && (!data.totalSize || !data.records)) {
+        id = data[0].Id || data[0].id;
       } else {
         return cb(null, {error: 'no salesforce id returned'});
       }
@@ -78,12 +79,6 @@ module.exports = function (opts) {
       if (salesForceId) lead.id$ = salesForceId;
       lead.save$(cb);
     });
-  }
-
-  function cmd_delete_lead (args, cb) {
-    var seneca = this;
-    var lead = seneca.make$('Lead');
-    lead.remove$(args.lead.Id, cb);
   }
 
   // We convert a Lead to an Account by calling a custom Apex endpoint.

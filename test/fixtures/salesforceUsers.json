@@ -1,0 +1,27 @@
+[
+  {
+    "PlatformId__c": 1000,
+    "Name": "test1",
+    "Email__c": "test1@example.com"
+  },
+  {
+    "PlatformId__c": 1001,
+    "Name": "test2",
+    "Email__c": "test2@example.com"
+  },
+  {
+    "PlatformId__c": 1002,
+    "Name": "test3",
+    "Email__c": "test3@example.com"
+  },
+  {
+    "PlatformId__c": 1003,
+    "Name": "test4",
+    "Email__c": "test4@example.com"
+  },
+  {
+    "PlatformId__c": 1004,
+    "Name": "test5",
+    "Email__c": "test5@example.com"
+  }
+]
