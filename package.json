@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node service.js",
-   	"lint": "./node_modules/.bin/semistandard *.js config/*.js",
+    "lint": "./node_modules/.bin/semistandard *.js config/*.js",
     "test": "npm run lint && bash -c 'source ./config/development.env; ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 68 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout'",
     "covrep": "bash test/covrep.sh"
   },
@@ -24,6 +24,7 @@
   "dependencies": {
     "jsforce": "1.4.1",
     "le_node": "1.1.0",
+    "lodash": "3.10.1",
     "newrelic": "1.19.2",
     "precommit": "1.1.5",
     "seneca": "git://github.com/thekemkid/seneca.git",
