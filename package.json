@@ -13,12 +13,9 @@
     "test": "npm run lint && bash -c 'source ./config/development.env; ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 68 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout'",
     "covrep": "bash test/covrep.sh"
   },
-  "precommit": {
-    "tasks": [
-      "npm run lint",
-      "test"
-    ]
-  },
+  "pre-commit": [
+    "test"
+  ],
   "author": "nearForm",
   "license": "MIT",
   "dependencies": {
@@ -26,16 +23,14 @@
     "le_node": "1.1.0",
     "lodash": "3.10.1",
     "newrelic": "1.19.2",
-    "precommit": "1.1.5",
-    "seneca": "git://github.com/thekemkid/seneca.git",
+    "seneca": "0.7.2",
     "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
   },
   "devDependencies": {
     "chai": "2.2.0",
-    "es6-promise": "3.0.2",
-    "mocha": "2.2.1",
-    "semistandard": "7.0.2",
     "lab": "5.15.1",
+    "pre-commit": "1.1.2",
+    "semistandard": "7.0.2",
     "sinon": "1.16.1"
   }
 }
