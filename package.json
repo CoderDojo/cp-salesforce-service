@@ -23,6 +23,7 @@
     "le_node": "1.1.0",
     "lodash": "3.10.1",
     "newrelic": "1.19.2",
+    "pm2": "0.15.10",
     "seneca": "0.7.2",
     "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
   },
