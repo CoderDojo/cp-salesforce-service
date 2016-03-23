@@ -24,7 +24,9 @@
     "lodash": "3.10.1",
     "newrelic": "1.19.2",
     "seneca": "0.7.2",
-    "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
+    "seneca-salesforce-store": "nearform/seneca-salesforce-store.git",
+    "seneca-queue": "~0.2.0",
+    "seneca-redis-queue-transport": "~0.2.0"
   },
   "devDependencies": {
     "chai": "2.2.0",

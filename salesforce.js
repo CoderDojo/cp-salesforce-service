@@ -85,10 +85,13 @@ module.exports = function (opts) {
   // Note we do this directly in JSForce.
   function cmd_convert_lead_to_account (args, cb) {
     var jsforce = require('jsforce');
+    console.log(opts);
     var conn = new jsforce.Connection(opts);
 
     function _connect (cb) {
       conn.identity(function (err, id) {
+        console.log(opts.username + opts.password);
+
         if (err) return conn.login(opts.username, opts.password, cb);
         else return cb();
       });
