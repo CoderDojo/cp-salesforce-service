@@ -1,13 +1,54 @@
 'use strict';
+
+var updateUsers = require('./lib/update-users');
+var updateProfiles = require('./lib/update-profiles');
+var updateDojos = require('./lib/update-dojos');
+var _ = require('lodash');
+
 module.exports = function (opts) {
   var seneca = this;
   var plugin = 'cd-salesforce';
-
   seneca.add({role: plugin, cmd: 'list_leads'}, cmd_list_leads);
   seneca.add({role: plugin, cmd: 'save_lead'}, cmd_save_lead);
   seneca.add({role: plugin, cmd: 'convert_lead_to_account'}, cmd_convert_lead_to_account);
   seneca.add({role: plugin, cmd: 'save_account'}, cmd_save_account);
   seneca.add({role: plugin, cmd: 'get_account'}, cmd_get_account);
+  seneca.add({role: plugin, cmd: 'queud_update_users'}, _wrapQueue('update_users'));
+  seneca.add({role: plugin, cmd: 'queud_update_profiles'}, _wrapQueue('update_profiles'));
+  seneca.add({role: plugin, cmd: 'queud_update_dojos'}, _wrapQueue('update_dojos'));
+
+  /**
+  * wrapQueue - englobe a seneca act to push it to a queue to avoid blocking by timeouts
+  * @param Function   f   the function to englobe
+  * @return
+  **/
+  function _wrapQueue (f) {
+    return function (args, done) {
+      var task = {
+        role: plugin,
+        cmd: f
+      };
+      _.extend(task, args.param);
+      seneca.act({ role: 'queue', cmd: 'enqueue', msg: task, timeout: 120000 }, function (err, res) {
+        if (err) done(err);
+        done(res);
+      });
+    };
+  }
+
+  this._salesForceLogger = function (level, message) {
+    if (level === 'error') {
+      seneca.log.error(message);
+    } else if (level === 'success') {
+      seneca.log.info(message);
+    } else if (level === 'info') {
+      seneca.log.info(message);
+    }
+  };
+
+  seneca.add({role: plugin, cmd: 'update_users'}, updateUsers.bind(seneca));
+  seneca.add({role: plugin, cmd: 'update_profiles'}, updateProfiles.bind(seneca));
+  seneca.add({role: plugin, cmd: 'update_dojos'}, updateDojos.bind(seneca));
 
   function _accountExistsInSalesForce (userId, cb) {
     var account = seneca.make$('Account');

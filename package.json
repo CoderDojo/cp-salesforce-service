@@ -20,11 +20,14 @@
   "license": "MIT",
   "dependencies": {
     "jsforce": "1.4.1",
-    "le_node": "1.1.0",
+    "le_node": "~1.1.0",
     "lodash": "3.10.1",
     "newrelic": "1.19.2",
     "seneca": "0.7.2",
-    "seneca-salesforce-store": "nearform/seneca-salesforce-store.git"
+    "seneca-salesforce-store": "nearform/seneca-salesforce-store.git",
+    "seneca-queue": "~0.2.0",
+    "moment": "~2.12.0",
+    "limax": "~1.2.0"
   },
   "devDependencies": {
     "chai": "2.2.0",
