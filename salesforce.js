@@ -26,10 +26,11 @@ module.exports = function (opts) {
     return function (args, done) {
       var task = {
         role: plugin,
-        cmd: f
+        cmd: f,
+        timeout$: opts.timeout
       };
       _.extend(task, args.param);
-      seneca.act({ role: 'queue', cmd: 'enqueue', msg: task, timeout: 120000 }, function (err, res) {
+      seneca.act({ role: 'queue', cmd: 'enqueue', msg: task, timeout$: opts.timeout, fatal$: false }, function (err, res) {
         if (err) done(err);
         done(res);
       });

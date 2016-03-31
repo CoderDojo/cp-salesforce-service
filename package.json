@@ -23,7 +23,7 @@
     "le_node": "~1.1.0",
     "lodash": "3.10.1",
     "newrelic": "1.19.2",
-    "seneca": "0.7.2",
+    "seneca": "1.4.0",
     "seneca-salesforce-store": "nearform/seneca-salesforce-store.git",
     "seneca-queue": "~0.2.0",
     "moment": "~2.12.0",
