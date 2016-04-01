@@ -10,7 +10,8 @@ module.exports = function () {
     salesforce: {
       loginUrl: process.env.SALESFORCE_URL,
       username: process.env.SALESFORCE_USERNAME,
-      password: process.env.SALESFORCE_PASSWORD
+      password: process.env.SALESFORCE_PASSWORD,
+      timeout: 120000
     },
     strict: {add: false, result: false},
     actcache: {active: false}
