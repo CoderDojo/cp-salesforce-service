@@ -4,6 +4,7 @@ if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
 
 var config = require('./config/config.js')();
 var util = require('util');
+var _ = require('lodash');
 var seneca = require('seneca')(config);
 
 seneca.log.info('using config', JSON.stringify(config, null, 4));
@@ -27,6 +28,6 @@ function shutdown (err) {
 
 seneca.use('salesforce-store', config.salesforce);
 seneca.use('queue');
-seneca.use(require('./salesforce.js'), config.salesforce);
+seneca.use(require('./salesforce.js'), _.extend(config.salesforce, {timeout: config.timeout}));
 seneca.act({ role: 'queue', cmd: 'start' });
 seneca.listen();
