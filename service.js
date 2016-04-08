@@ -30,4 +30,5 @@ seneca.use('salesforce-store', config.salesforce);
 seneca.use('queue');
 seneca.use(require('./salesforce.js'), _.extend(config.salesforce, {timeout: config.timeout}));
 seneca.act({ role: 'queue', cmd: 'start' });
-seneca.listen();
+seneca.listen()
+.client({ type: 'web', port: 10301, pin: 'role:cd-dojos,cmd:*' });
